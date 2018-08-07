@@ -10,7 +10,7 @@ IMAGES_PATH = "C:/Users/Ron/Dropbox/Code/py/home_collage/sample_images"
 
 def do_the_thing():
     images = get_all_images()
-    images = sample_images(images)
+    images = resample_images(images)
     images = crop_images(images)
     images = pad_images(images)
     new_img = assemble_images(images)
@@ -21,7 +21,7 @@ def get_all_images():
     return [cv2.imread(dir[0] + '/' + f_name) for dir in os.walk(IMAGES_PATH) for f_name in dir[2]]
 
 
-def sample_images(images):
+def resample_images(images):
     n = grid_size(len(images))
     return random.sample(images, n ** 2)
 
