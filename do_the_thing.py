@@ -5,13 +5,16 @@ from functools import partial
 import cv2
 from tqdm import tqdm
 
+### CONF ###
 # IMAGES_PATH = "C:/Users/Ron/temp/ayelet_images"
 IMAGES_PATH = "C:/Users/Ron/Dropbox/Code/py/home_collage/sample_images"
 OUTPUT_PATH = "C:/Users/Ron/temp/result.jpg"
 WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 6780, 3012
 IMG_HEIGHT_IN_PIXELS = 140
 INNER_PAD_IN_PIXELS, OUTER_PAD_IN_PIXELS = 2, 5
-PAD_COLOR = 'WHITE'
+
+### CONSTS ###
+WHITE = [255, 255, 255]
 
 
 def do_the_thing():
@@ -57,12 +60,10 @@ def width(img):
     return img.shape[1]
 
 
-WHITE = [255, 255, 255]
-
-
 def pad_images(images):
     pad = partial(cv2.copyMakeBorder,
-                  top=INNER_PAD_IN_PIXELS, bottom=INNER_PAD_IN_PIXELS, left=INNER_PAD_IN_PIXELS, right=INNER_PAD_IN_PIXELS,
+                  top=INNER_PAD_IN_PIXELS, bottom=INNER_PAD_IN_PIXELS, left=INNER_PAD_IN_PIXELS,
+                  right=INNER_PAD_IN_PIXELS,
                   borderType=cv2.BORDER_CONSTANT, value=WHITE)
     return (pad(img) for img in images)
 
