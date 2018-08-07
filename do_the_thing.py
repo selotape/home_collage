@@ -2,70 +2,83 @@ import os
 import random
 
 import cv2
-import numpy as np
 from tqdm import tqdm
 
-IMAGES_PATH = "C:/Users/Ron/temp/ayelet_images"
-WIDTH_COUNT, HEIGHT_COUNT = 4, 3
+tqdm = lambda x: x
+
+# IMAGES_PATH = "C:/Users/Ron/temp/ayelet_images"
+IMAGES_PATH = "C:/Users/Ron/Dropbox/Code/py/home_collage/sample_images"
+OUTPUT_PATH = "C:/Users/Ron/temp/result.jpg"
+WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 6780, 3012
+IMG_HEIGHT_IN_PIXELS = 140  # 2 cm in 96 dpi
+INNER_PAD_IN_PIXELS, OUTER_PAD_IN_PIXELS = 2, 5
+PAD_COLOR = 'WHITE'
 
 
 def do_the_thing():
     image_paths = search_image_paths()
-    image_paths = resample_images(image_paths)
     images = read_images(image_paths)
-    images = crop_images(images)
+    # images = crop_images(images)
     images = scale_images(images)
     images = pad_images(images)
-    new_img = assemble_images(images)
+    new_img = assemble_image(images)
+    new_img = pad_image(new_img)
     store_image(new_img)
 
 
 def search_image_paths():
-    return [dir[0] + '/' + f_name
-            for dir in os.walk(IMAGES_PATH)
-            for f_name in dir[2]]
+    image_paths = [dir[0] + '/' + f_name for dir in os.walk(IMAGES_PATH) for f_name in dir[2]]
+    random.shuffle(image_paths)
+    return image_paths
 
 
 def read_images(image_paths):
-    print('Loading images...')
-    return [cv2.imread(img_path) for img_path in tqdm(image_paths)]
+    return (cv2.imread(img_path) for img_path in tqdm(image_paths))
 
 
-def resample_images(images):
-    return random.sample(images, WIDTH_COUNT * HEIGHT_COUNT)
-
-
-def crop_images(images):
-    print('Cropping images...')
-    min_width = min(img.shape[0] for img in images)
-    min_height = min(img.shape[1] for img in images)
-    return [img[:min_width, :min_height] for img in images]
+def pad_image(new_img):
+    return new_img
 
 
 def scale_images(images):
-    return images
+    for image in images:
+        yield scale_image(image)
+
+
+def scale_image(image):
+    scale = height(image) // IMG_HEIGHT_IN_PIXELS
+    scaled_size = (width(image) // scale, IMG_HEIGHT_IN_PIXELS)
+    return cv2.resize(src=image, dsize=scaled_size, interpolation=cv2.INTER_AREA)
+
+
+def height(img):
+    return img.shape[0]
+
+
+def width(img):
+    return img.shape[1]
 
 
 def pad_images(images):
     return images
 
 
-def assemble_images(images):
-    print('Assembling image...')
-
-    first_row = np.concatenate(images[:WIDTH_COUNT], axis=1)
-    result = first_row
-    for i in range(1, HEIGHT_COUNT):
-        next_row = np.concatenate(images[i * WIDTH_COUNT:(i + 1) * WIDTH_COUNT], axis=1)
-        result = np.concatenate((result, next_row), axis=0)
-    return result
+def assemble_image(images):
+    # print('Assembling image...')
+    #
+    # first_row = np.concatenate(images[:WIDTH_COUNT], axis=1)
+    # result = first_row
+    # for i in range(1, HEIGHT_COUNT):
+    #     next_row = np.concatenate(images[i * WIDTH_COUNT:(i + 1) * WIDTH_COUNT], axis=1)
+    #     result = np.concatenate((result, next_row), axis=0)
+    return next(images)
 
 
 def store_image(new_img):
     print('Storing image...')
 
     cv2.imshow('image', new_img)
-    cv2.imwrite('result.jpg', new_img)
+    cv2.imwrite(OUTPUT_PATH, new_img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
