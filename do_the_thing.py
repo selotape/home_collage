@@ -1,4 +1,5 @@
 import os
+from math import sqrt
 
 import cv2
 import numpy as np
@@ -20,17 +21,36 @@ def pad_images(images):
     return images  # TODO - implement!
 
 
+def grid_size(num_images):
+    return int(sqrt(num_images))
+
+
 def assemble_images(images):
-    return np.concatenate(images, axis=1)
+    num_images = len(images)
+    n = grid_size(num_images)
+    result = np.concatenate(images[:n], axis=1)
+
+    for i in range(1, n):
+        new_row = np.concatenate(images[i * n:(i + 1) * n], axis=1)
+        result = np.concatenate((result, new_row), axis=0)
+
+    return result
 
 
-if __name__ == '__main__':
+def do_the_thing():
     images = get_all_images()
     images = crop_images(images)
     images = pad_images(images)
     new_img = assemble_images(images)
+    store_image(new_img)
 
+
+def store_image(new_img):
     cv2.imshow('image', new_img)
     cv2.imwrite('result.jpg', new_img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    do_the_thing()
