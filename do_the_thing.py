@@ -27,6 +27,7 @@ def do_the_thing():
     print_metrics()
     image_paths = search_image_paths()
     images = read_images(image_paths)
+    images = rotate_images(images)
     images = scale_images(images)
     images = pad_images(images)
     new_img = assemble_collage(images)
@@ -46,10 +47,8 @@ def read_images(image_paths):
         yield cv2.imread(img_path)
 
 
-def pad_collage(collage):
-    return cv2.copyMakeBorder(collage,
-                              top=IMAGE_PAD_IN_PIXELS, bottom=IMAGE_PAD_IN_PIXELS, left=IMAGE_PAD_IN_PIXELS, right=IMAGE_PAD_IN_PIXELS,
-                              borderType=cv2.BORDER_CONSTANT, value=WHITE)
+def rotate_images(images):
+    return images
 
 
 def scale_images(images):
@@ -130,6 +129,12 @@ def right_pad_row_image(img_ix, row_images):
     img = cv2.copyMakeBorder(src=img, top=0, bottom=0, left=0, right=1,
                              borderType=cv2.BORDER_CONSTANT, value=WHITE)
     row_images.insert(img_ix, img)
+
+
+def pad_collage(collage):
+    return cv2.copyMakeBorder(collage,
+                              top=IMAGE_PAD_IN_PIXELS, bottom=IMAGE_PAD_IN_PIXELS, left=IMAGE_PAD_IN_PIXELS, right=IMAGE_PAD_IN_PIXELS,
+                              borderType=cv2.BORDER_CONSTANT, value=WHITE)
 
 
 def store_image(new_img):
