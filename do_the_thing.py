@@ -87,13 +87,9 @@ def pad_images(images):
 
 def assemble_collage(images):
     images = iter(images)
-    first_row = assemble_row(images)
-    collage = first_row
     num_rows = HEIGHT_IN_PIXELS // IMG_HEIGHT_IN_PIXELS
-    for _ in range(num_rows - 1):
-        next_row = assemble_row(images)
-        collage = np.concatenate((collage, next_row), axis=0)
-    return collage
+    rows = [assemble_row(images) for _ in range(num_rows)]
+    return np.concatenate(rows, axis=0)
 
 
 def assemble_row(images):
