@@ -47,7 +47,7 @@ def print_metrics():
 
 
 def search_image_paths():
-    image_paths = [dir[0] + '/' + f_name for dir in os.walk(IMAGES_PATH) for f_name in dir[2]]
+    image_paths = [dir[0] + '/' + f_name for dir in os.walk(IMAGES_PATH) for f_name in dir[2] if f_name.endswith(('jpg', 'JPG'))]
     random.shuffle(image_paths)
     return image_paths
 
