@@ -110,7 +110,7 @@ def complete_missing_columns(row_images):
     missing_columns = WIDTH_IN_PIXELS - sum(width(img) for img in row_images)
     num_images = len(row_images)
     while missing_columns >= num_images - 1:
-        for i in range(num_images):
+        for i in range(num_images - 1):
             right_pad_row_image(i, row_images)
             missing_columns -= 1
 
