@@ -1,11 +1,15 @@
 import os
 import random
+from datetime import datetime
 from functools import partial
 
 import cv2
 import numpy as np
 
+from util import height, width
+
 ### CONF ###
+
 IMAGES_PATH = "C:/Users/Ron/temp/ayelet_images"
 # IMAGES_PATH = "C:/Users/Ron/Dropbox/Code/py/home_collage/sample_images"
 OUTPUT_PATH = "C:/Users/Ron/temp/result.jpg"
@@ -15,12 +19,6 @@ IMAGE_PAD_IN_PIXELS, COLLAGE_PAD_IN_PIXELS = 6, 30
 
 ### CONSTS ###
 WHITE = [255, 255, 255]
-
-
-def print_metrics():
-    print('Expected num rows: %d' % (HEIGHT_IN_PIXELS // IMG_HEIGHT_IN_PIXELS))
-    print('Expected imgs per rows: %d' % (WIDTH_IN_PIXELS // IMG_HEIGHT_IN_PIXELS))
-    print('Expected total images: %d' % (HEIGHT_IN_PIXELS * WIDTH_IN_PIXELS // IMG_HEIGHT_IN_PIXELS ** 2))
 
 
 def do_the_thing():
@@ -33,6 +31,15 @@ def do_the_thing():
     new_img = assemble_collage(images)
     new_img = pad_collage(new_img)
     store_image(new_img)
+
+
+def print_metrics():
+    print('===============================')
+    print('Start time: %s' % str(datetime.now()))
+    print('Expected number of rows: %d' % (HEIGHT_IN_PIXELS // IMG_HEIGHT_IN_PIXELS))
+    print('Expected images per row: %d' % (WIDTH_IN_PIXELS // IMG_HEIGHT_IN_PIXELS))
+    print('Expected total images: %d' % (HEIGHT_IN_PIXELS * WIDTH_IN_PIXELS // IMG_HEIGHT_IN_PIXELS ** 2))
+    print('===============================\n')
 
 
 def search_image_paths():
@@ -61,14 +68,6 @@ def scale_image(image):
     scale = height(image) // IMG_HEIGHT_IN_PIXELS
     scaled_size = (width(image) // scale, IMG_HEIGHT_IN_PIXELS)
     return cv2.resize(src=image, dsize=scaled_size, interpolation=cv2.INTER_AREA)
-
-
-def height(img):
-    return img.shape[0]
-
-
-def width(img):
-    return img.shape[1]
 
 
 def pad_images(images):
@@ -139,7 +138,6 @@ def pad_collage(collage):
 
 def store_image(new_img):
     print('Storing image...')
-
     cv2.imshow('image', new_img)
     cv2.imwrite(OUTPUT_PATH, new_img)
     cv2.waitKey(0)
