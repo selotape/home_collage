@@ -9,9 +9,9 @@ import numpy as np
 IMAGES_PATH = "C:/Users/Ron/temp/ayelet_images"
 # IMAGES_PATH = "C:/Users/Ron/Dropbox/Code/py/home_collage/sample_images"
 OUTPUT_PATH = "C:/Users/Ron/temp/result.jpg"
-WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 4000, 2500
-IMG_HEIGHT_IN_PIXELS = 120
-IMAGE_PAD_IN_PIXELS, COLLAGE_PAD_IN_PIXELS = 2, 5
+WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 12000, 7500
+IMG_HEIGHT_IN_PIXELS = 360
+IMAGE_PAD_IN_PIXELS, COLLAGE_PAD_IN_PIXELS = 6, 30
 
 ### CONSTS ###
 WHITE = [255, 255, 255]
