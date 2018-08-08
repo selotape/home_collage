@@ -13,9 +13,9 @@ from util import height, width
 IMAGES_PATH = "C:/Users/Ron/temp/ayelet_images"
 # IMAGES_PATH = "C:/Users/Ron/Dropbox/Code/py/home_collage/sample_images"
 OUTPUT_PATH = "C:/Users/Ron/temp/result.jpg"
-WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 16000, 7500
-IMG_HEIGHT_IN_PIXELS = 360
-IMAGE_PAD_IN_PIXELS, COLLAGE_PAD_IN_PIXELS = 6, 30
+WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 30000, 15000
+IMG_HEIGHT_IN_PIXELS = 720
+IMAGE_PAD_IN_PIXELS, COLLAGE_PAD_IN_PIXELS = 12, 120
 
 ### CONSTS ###
 WHITE = [255, 255, 255]
