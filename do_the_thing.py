@@ -1,3 +1,5 @@
+from __future__ import division
+
 import os
 import random
 from datetime import datetime
@@ -26,6 +28,7 @@ def do_the_thing():
     print_metrics()
     image_paths = search_image_paths()
     images = read_images(image_paths)
+    images = filter_images(images)
     images = rotate_images(images)
     images = scale_images(images)
     images = pad_images(images)
@@ -55,6 +58,10 @@ def read_images(image_paths):
         yield cv2.imread(img_path)
 
 
+def filter_images(images):
+    return images
+
+
 def rotate_images(images):
     return images
 
@@ -65,8 +72,8 @@ def scale_images(images):
 
 
 def scale_image(image):
-    scale = height(image) // IMG_HEIGHT_IN_PIXELS
-    scaled_size = (width(image) // scale, IMG_HEIGHT_IN_PIXELS)
+    scale = height(image) / IMG_HEIGHT_IN_PIXELS
+    scaled_size = (int(width(image) / scale), IMG_HEIGHT_IN_PIXELS)
     return cv2.resize(src=image, dsize=scaled_size, interpolation=cv2.INTER_AREA)
 
 
