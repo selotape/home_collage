@@ -146,6 +146,7 @@ def pad_collage(collage):
 def store_image(new_img):
     print("Storing image in '%s'..." % OUTPUT_PATH)
     cv2.imwrite(OUTPUT_PATH, new_img)
+    os.system("start " + OUTPUT_PATH)
 
 
 if __name__ == '__main__':
