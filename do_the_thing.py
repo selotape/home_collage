@@ -15,9 +15,9 @@ from util import height, width
 IMAGES_PATH = "C:/Users/Ron/temp/ayelet_images"
 # IMAGES_PATH = "C:/Users/Ron/Dropbox/Code/py/home_collage/sample_images"
 OUTPUT_PATH = "C:/Users/Ron/temp/result.jpg"
-WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 30000, 15000
-IMG_HEIGHT_IN_PIXELS = 720
-IMAGE_PAD_IN_PIXELS, COLLAGE_PAD_IN_PIXELS = 12, 120
+WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 60000, 30000
+IMG_HEIGHT_IN_PIXELS = 1440
+IMAGE_PAD_IN_PIXELS, COLLAGE_PAD_IN_PIXELS = 24, 72
 
 ### CONSTS ###
 WHITE = [255, 255, 255]
@@ -139,7 +139,7 @@ def right_pad_row_image(img_ix, row_images):
 
 def pad_collage(collage):
     return cv2.copyMakeBorder(collage,
-                              top=IMAGE_PAD_IN_PIXELS, bottom=IMAGE_PAD_IN_PIXELS, left=IMAGE_PAD_IN_PIXELS, right=IMAGE_PAD_IN_PIXELS,
+                              top=COLLAGE_PAD_IN_PIXELS, bottom=COLLAGE_PAD_IN_PIXELS, left=COLLAGE_PAD_IN_PIXELS, right=COLLAGE_PAD_IN_PIXELS,
                               borderType=cv2.BORDER_CONSTANT, value=WHITE)
 
 
