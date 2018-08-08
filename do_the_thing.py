@@ -13,7 +13,7 @@ from util import height, width
 IMAGES_PATH = "C:/Users/Ron/temp/ayelet_images"
 # IMAGES_PATH = "C:/Users/Ron/Dropbox/Code/py/home_collage/sample_images"
 OUTPUT_PATH = "C:/Users/Ron/temp/result.jpg"
-WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 12000, 7500
+WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 16000, 7500
 IMG_HEIGHT_IN_PIXELS = 360
 IMAGE_PAD_IN_PIXELS, COLLAGE_PAD_IN_PIXELS = 6, 30
 
@@ -22,6 +22,7 @@ WHITE = [255, 255, 255]
 
 
 def do_the_thing():
+    print('Start time: %s' % str(datetime.now()))
     print_metrics()
     image_paths = search_image_paths()
     images = read_images(image_paths)
@@ -31,11 +32,11 @@ def do_the_thing():
     new_img = assemble_collage(images)
     new_img = pad_collage(new_img)
     store_image(new_img)
+    print('End time: %s' % str(datetime.now()))
 
 
 def print_metrics():
     print('===============================')
-    print('Start time: %s' % str(datetime.now()))
     print('Expected number of rows: %d' % (HEIGHT_IN_PIXELS // IMG_HEIGHT_IN_PIXELS))
     print('Expected images per row: %d' % (WIDTH_IN_PIXELS // IMG_HEIGHT_IN_PIXELS))
     print('Expected total images: %d' % (HEIGHT_IN_PIXELS * WIDTH_IN_PIXELS // IMG_HEIGHT_IN_PIXELS ** 2))
@@ -60,7 +61,6 @@ def rotate_images(images):
 
 def scale_images(images):
     for i, image in enumerate(images, start=1):
-        print("Scaling %dth image..." % i)
         yield scale_image(image)
 
 
@@ -137,11 +137,8 @@ def pad_collage(collage):
 
 
 def store_image(new_img):
-    print('Storing image...')
-    cv2.imshow('image', new_img)
+    print("Storing image in '%s'..." % OUTPUT_PATH)
     cv2.imwrite(OUTPUT_PATH, new_img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
