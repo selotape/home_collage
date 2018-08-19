@@ -12,10 +12,10 @@ from util import height, width
 
 ### CONF ###
 
-IMAGES_PATH = "C:/Users/Ron/temp/ayelet_images"
+IMAGES_PATH = "c:/users/ron/temp/ayelet_images"
 # IMAGES_PATH = "C:/Users/Ron/Dropbox/Code/py/home_collage/sample_images"
 OUTPUT_PATH = "C:/Users/Ron/temp/result.jpg"
-WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 60000, 30000
+WIDTH_IN_PIXELS, HEIGHT_IN_PIXELS = 70000, 30000
 IMG_HEIGHT_IN_PIXELS = 1440
 IMAGE_PAD_IN_PIXELS, COLLAGE_PAD_IN_PIXELS = 24, 144
 
